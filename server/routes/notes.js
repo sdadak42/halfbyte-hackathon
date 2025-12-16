@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const Note = require("./Note");
-const Workspace = require("../server/models/Workspace");
-const authMiddleware = require("../server/middleware/auth");
+const Note = require("../models/Note");
+const Workspace = require("../models/Workspace");
+const authMiddleware = require("../middleware/auth");
 const multer = require("multer");
 const path = require("path");
 

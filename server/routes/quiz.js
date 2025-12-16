@@ -1,9 +1,6 @@
 const express = require("express");
 const router = express.Router();
-// NOTE: This path assumes this file is in server/routes/ or similar relative to middleware
-// If keeping in separate folder, adjust path accordingly.
-// For now, pointing to the project root middleware.
-const authMiddleware = require("../server/middleware/auth");
+const authMiddleware = require("../middleware/auth");
 
 const {
   createQuiz,

@@ -1,11 +1,8 @@
 // controllers/quiz.controller.js
-const Quiz = require('./Quiz');
-const QuizResult = require('./QuizResult');
-// Note: We assume this file will be eventually moved to server/controllers/ or similar.
-// But for now, imports typically point to relative paths.
-// Since we are not allowed to move files to server/, we keep relative paths but comment on them.
-// NOTE TO DEVELOPER: When integrating, ensure paths to Workspace model are correct.
-const Workspace = require('../server/models/Workspace');
+// controllers/quiz.controller.js
+const Quiz = require('../models/Quiz');
+const QuizResult = require('../models/QuizResult');
+const Workspace = require('../models/Workspace');
 
 // POST /api/quizzes - Quiz oluştur
 exports.createQuiz = async (req, res) => {

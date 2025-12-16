@@ -27,9 +27,13 @@ connectDB();
 // Rotalar
 const authRoute = require('./routes/auth');
 const workspaceRoute = require('./routes/workspace');
+const quizRoute = require('./routes/quiz');
+const notesRoute = require('./routes/notes');
 
 app.use('/api/auth', authRoute);
 app.use('/api/workspaces', workspaceRoute);
+app.use('/api/quizzes', quizRoute);
+app.use('/api/notes', notesRoute);
 
 // Sunucuyu Başlat
 const PORT = process.env.PORT || 5000;
