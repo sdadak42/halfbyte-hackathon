@@ -1,0 +1,56 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quenote</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css">
+</head>
+<body>
+    <section class="header" >
+        <nav>
+            <a href="main.html"><img src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa-solid fa-times" onclick="hideMenu()"></i>
+                    <ul>
+                        <li><A href="">Notes</a></li>
+                        <li><A href="">Flash Cards</a></li>
+                        <li><A href="">Quizes</a></li>
+                        <li><A href="">Account Settings</a></li>
+                    </ul>
+            </div>
+            <i class="fa-solid fa-bars" onclick="showMenu()"></i>
+        </nav>
+    <div class="intro">
+        <h1>Your notes are safe with us!<br>Organize and access your study materials anytime, anywhere.</h1>
+        <p>You can manage your notes and study materials  with Quenote. You can also generate quzizes and flash cards!</p>  
+        
+    </div>
+
+    <div class="text-box">
+        <h1>Welcome Again!</h1>
+        <p>Which tool do you want to study with?</p>
+        <div class="actions-grid">
+            <a href="" class="action-btn notes-btn">Notes</a>
+            <a href="" class="action-btn quiz-btn">Quizes</a>
+            <a href="" class="action-btn cards-btn">Flash Cards</a>
+        </div>
+    </div>
+    </section>
+
+<script>
+    var navLinks = document.getElementById("navLinks");
+    function showMenu(){
+        navLinks.style.right = "0";
+        document.body.classList.add('sidebar-open');
+    }
+    function hideMenu(){
+        navLinks.style.right = "-200px";
+        document.body.classList.remove('sidebar-open');
+    }
+</script>
+
+</body>
+</html>
