@@ -7,7 +7,7 @@ const quizResultSchema = new mongoose.Schema({
     required: true
   },
   username: {
-    type: String, // Changed from userId (ObjectId) to username (String)
+    type: String,
     required: true
   },
   score: { type: Number, required: true },

@@ -24,7 +24,7 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     joinedWorkspaces: [{
-        type: String, // Storing Workspace IDs (or codes)
+        type: String, 
         default: []
     }]
 }, { timestamps: true });

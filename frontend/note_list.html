@@ -29,7 +29,6 @@
                     <p>Click to create new notes.</p>
                 </div>
 
-                <!-- Notes will be loaded here dynamically -->
             </div>
         </div>
     </section>
@@ -41,7 +40,6 @@
         const workspaceId = urlParams.get('id') || sessionStorage.getItem('currentWorkspaceId');
 
         async function loadNotes() {
-            // Static fake notes for preview (not from database)
             const fakeNotes = [
                 {
                     _id: 'fake1',
@@ -82,11 +80,11 @@
         }
 
         function createNewNote() {
-            alert('📝 Not ekleme özelliği şu anda geliştirilme aşamasındadır.');
+            alert('Not ekleme özelliği şu anda geliştirilme aşamasındadır.');
         }
 
         function openNote(noteId) {
-            alert('📚 Not görüntüleme özelliği şu anda geliştirilme aşamasındadır.');
+            alert('Not görüntüleme özelliği şu anda geliştirilme aşamasındadır.');
         }
 
         window.addEventListener('load', loadNotes);

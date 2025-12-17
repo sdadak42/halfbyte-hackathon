@@ -20,9 +20,7 @@
             <h1>Recently Created Quizzes</h1>
             <p>Select a quiz to start practicing</p>
 
-            <!-- Quiz Grid -->
             <div class="quiz-grid" id="quizGrid">
-                <!-- Create New Quiz Card -->
                 <div class="quiz-card create-card" onclick="createNewQuiz()">
                     <div class="create-icon">
                         <i class="fa-solid fa-plus"></i>
@@ -30,7 +28,6 @@
                     <p>Click to create new quizzes.</p>
                 </div>
 
-                <!-- Quizzes will be loaded here dynamically -->
             </div>
         </div>
     </section>
@@ -38,7 +35,6 @@
     <script>
         const API_URL = 'http://localhost:5000/api/quizzes';
 
-        // Get workspace ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         const workspaceId = urlParams.get('id') || sessionStorage.getItem('currentWorkspaceId');
 
@@ -77,12 +73,10 @@
         function displayQuizzes(quizzes) {
             const grid = document.getElementById('quizGrid');
 
-            // Keep the create card, remove others
             const createCard = grid.querySelector('.create-card');
             grid.innerHTML = '';
             grid.appendChild(createCard);
 
-            // Add quiz cards
             quizzes.forEach(quiz => {
                 const card = document.createElement('div');
                 card.className = 'quiz-card';
@@ -108,7 +102,6 @@
             window.location.href = `quiz-solve.html?quiz=${quizId}`;
         }
 
-        // Load quizzes on page load
         window.addEventListener('load', loadQuizzes);
     </script>
 </body>

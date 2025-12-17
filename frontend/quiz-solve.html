@@ -25,7 +25,6 @@
                 <h1 id="quizTitle">Loading...</h1>
             </div>
 
-            <!-- Quiz Questions (will be loaded dynamically) -->
             <div class="questions-container" id="questionsContainer">
                 <p>Loading quiz...</p>
             </div>
@@ -33,7 +32,6 @@
             <button class="submit-btn" id="submitBtn" onclick="submitQuiz()" style="display:none">Submit Quiz</button>
         </div>
 
-        <!-- Results Section (hidden initially) -->
         <div class="results-container" id="resultsSection" style="display: none;">
             <div class="results-header">
                 <h1>Your Grade:</h1>
@@ -74,7 +72,6 @@
         let currentQuiz = null;
         let userAnswers = [];
 
-        // Get quiz ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         const quizId = urlParams.get('quiz');
 
@@ -136,7 +133,6 @@
         }
 
         async function submitQuiz() {
-            // Collect answers
             userAnswers = [];
 
             for (let i = 0; i < currentQuiz.questions.length; i++) {
@@ -148,7 +144,6 @@
                 userAnswers.push(parseInt(selected.value));
             }
 
-            // Submit to backend
             try {
                 const response = await fetch(`${API_URL}/${quizId}/submit`, {
                     method: 'POST',
@@ -172,7 +167,6 @@
         }
 
         function displayResults(result) {
-            // Update grade
             document.getElementById('gradePercentage').textContent = result.percentage + '%';
 
             let gradeText = '';
@@ -184,7 +178,6 @@
 
             document.getElementById('gradeText').textContent = gradeText;
 
-            // Update results table
             const tableBody = document.getElementById('resultsTableBody');
             tableBody.innerHTML = '';
 
@@ -204,7 +197,6 @@
                 tableBody.appendChild(row);
             });
 
-            // Hide quiz, show results
             document.getElementById('quizSection').style.display = 'none';
             document.getElementById('resultsSection').style.display = 'block';
         }
@@ -215,20 +207,16 @@
         }
 
         function retakeQuiz() {
-            // Clear all selections
             document.querySelectorAll('input[type="radio"]').forEach(input => {
                 input.checked = false;
             });
 
-            // Show quiz, hide results
             document.getElementById('quizSection').style.display = 'block';
             document.getElementById('resultsSection').style.display = 'none';
 
-            // Scroll to top
             window.scrollTo(0, 0);
         }
 
-        // Load quiz on page load
         window.addEventListener('load', loadQuiz);
     </script>
 </body>

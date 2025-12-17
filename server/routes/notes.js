@@ -63,7 +63,6 @@ router.post("/add", upload.single('pdfFile'), async (req, res) => {
   }
 });
 
-// GET /api/notes?workspaceId=xxx (query parameter)
 router.get("/", async (req, res) => {
   try {
     const { workspaceId } = req.query;

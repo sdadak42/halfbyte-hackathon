@@ -64,7 +64,6 @@
     <script>
         const API_URL = 'http://localhost:5000/api/workspaces';
 
-        // 1. Create Workspace
         async function createWorkspace() {
             const nameInput = document.getElementById('createNameInput');
             const name = nameInput.value.trim();
@@ -87,8 +86,8 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    createWorkspaceCard(data); // Listeye ekle
-                    nameInput.value = ''; // Inputu temizle
+                    createWorkspaceCard(data); 
+                    nameInput.value = ''; 
                 } else {
                     alert(data.message || 'Failed to create workspace');
                 }
@@ -98,7 +97,6 @@
             }
         }
 
-        // 2. Join Workspace
         async function joinWorkspace() {
             const idInput = document.getElementById('joinIdInput');
             const workspaceId = idInput.value.trim();
@@ -121,8 +119,6 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Sayfayı yenileyebilir veya listeyi tekrar çekebiliriz
-                    // Şimdilik listeyi yenilemeyi deneyelim
                     loadWorkspaces();
                     idInput.value = '';
                     alert('Joined workspace successfully!');
@@ -135,7 +131,6 @@
             }
         }
 
-        // 3. Kart Oluşturma (Görselleştirme)
         function createWorkspaceCard(workspace) {
             const grid = document.getElementById('workspaceGrid');
             const emptyState = document.getElementById('emptyState');
@@ -143,12 +138,10 @@
             const card = document.createElement('div');
             card.className = 'workspace-card';
 
-            // Tıklayınca Git
             card.onclick = () => {
                 window.location.href = `main.html?id=${workspace.workspaceId}`;
             };
 
-            // ID Badge
             const idSpan = document.createElement('span');
             idSpan.style.position = 'absolute';
             idSpan.style.top = '10px';
@@ -157,7 +150,6 @@
             idSpan.style.color = '#666';
             idSpan.textContent = 'ID: ' + workspace.workspaceId;
 
-            // İsim
             const nameSpan = document.createElement('span');
             nameSpan.style.fontWeight = '500';
             nameSpan.textContent = workspace.name;
@@ -169,7 +161,6 @@
             emptyState.classList.remove('show');
         }
 
-        // 4. Listeyi Yükle
         async function loadWorkspaces() {
             const grid = document.getElementById('workspaceGrid');
             const emptyState = document.getElementById('emptyState');

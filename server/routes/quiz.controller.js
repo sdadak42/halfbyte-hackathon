@@ -39,7 +39,7 @@ exports.createQuiz = async (req, res) => {
     }
 
     const quiz = new Quiz({
-      workspaceId, // String
+      workspaceId, 
       noteId: noteId || null,
       title,
       questions,
@@ -70,7 +70,6 @@ exports.getAllQuizzes = async (req, res) => {
       return res.status(404).json({ message: "Workspace bulunamadı" });
     }
 
-    // Check membership
     if (!workspace.members.includes(req.user.username)) {
       return res.status(403).json({ message: "Bu verileri görme yetkiniz yok" });
     }
@@ -93,7 +92,6 @@ exports.getQuizById = async (req, res) => {
       return res.status(404).json({ message: "Quiz bulunamadı" });
     }
 
-    // Security check: accessing via workspace
     const workspace = await Workspace.findOne({ workspaceId: quiz.workspaceId });
     if (workspace && !workspace.members.includes(req.user.username)) {
       return res.status(403).json({ message: "Erişim reddedildi" });
@@ -105,7 +103,6 @@ exports.getQuizById = async (req, res) => {
   }
 };
 
-// POST /api/quizzes/:id/submit
 exports.submitQuiz = async (req, res) => {
   try {
     const quiz = await Quiz.findById(req.params.id);

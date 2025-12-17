@@ -12,10 +12,10 @@ const WorkspaceSchema = new mongoose.Schema({
     },
     ownerUsername: {
         type: String,
-        required: true // Odayı kuran kişi
+        required: true 
     },
     members: [{
-        type: String // Üye olan kullanıcıların 'username'leri
+        type: String 
     }]
 }, { timestamps: true });
 

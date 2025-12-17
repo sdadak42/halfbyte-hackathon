@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            // Clear previous errors
             errorMessage.style.display = 'none';
             errorMessage.textContent = '';
 
@@ -20,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        loginKey: email, // Backend expects loginKey (can be email or username)
+                        loginKey: email, 
                         password: password
                     })
                 });
@@ -28,14 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Store token and user data
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('user', JSON.stringify(data.user));
 
-                    // Redirect to workspace page
                     window.location.href = 'workspace.html';
                 } else {
-                    // Error
                     errorMessage.textContent = data.message || 'Login failed';
                     errorMessage.style.display = 'block';
                 }
@@ -59,19 +55,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('error-message');
 
-            console.log('Values:', { name, username, email, password }); // DEBUG LOG
+            console.log('Values:', { name, username, email, password }); 
 
-            // Clear previous errors
             errorMessage.style.display = 'none';
             errorMessage.textContent = '';
 
-            // Split name into firstName and lastName
             const nameParts = name.trim().split(' ');
             const firstName = nameParts[0];
             const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
 
             try {
-                console.log('Sending request to backend...'); // DEBUG LOG
+                console.log('Sending request to backend...'); 
                 const response = await fetch('http://localhost:5000/api/auth/register', {
                     method: 'POST',
                     headers: {

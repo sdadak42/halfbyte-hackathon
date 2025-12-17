@@ -25,7 +25,6 @@
                 <p>Choose how you want to create your quiz</p>
             </div>
 
-            <!-- Mode Selection Cards -->
             <div class="mode-selection-grid">
                 <div class="mode-card" onclick="selectMode('manual')">
                     <div class="mode-icon">
@@ -46,7 +45,6 @@
             </div>
         </div>
 
-        <!-- Manual Quiz Creation Form -->
         <div class="create-quiz-form" id="manualForm" style="display: none;">
             <div class="form-header">
                 <button class="back-btn" onclick="backToModeSelection()">
@@ -75,7 +73,6 @@
                     </button>
                 </div>
 
-                <!-- Question 1 (Default) -->
                 <div class="question-form-card" data-question-num="1">
                     <div class="question-form-header">
                         <h3>Question 1</h3>
@@ -126,7 +123,6 @@
             </div>
         </div>
 
-        <!-- AI Quiz Creation Form -->
         <div class="create-quiz-form" id="aiForm" style="display: none;">
             <div class="form-header">
                 <button class="back-btn" onclick="backToModeSelection()">
@@ -172,7 +168,6 @@
                 </button>
             </div>
 
-            <!-- AI Generated Questions Preview (Initially Hidden) -->
             <div class="ai-preview-section" id="aiPreview" style="display: none;">
                 <div class="section-header">
                     <h2>Generated Questions</h2>
@@ -180,7 +175,6 @@
                 </div>
 
                 <div id="aiGeneratedQuestions">
-                    <!-- AI generated questions will be displayed here -->
                 </div>
 
                 <div class="form-actions">
@@ -286,7 +280,6 @@
         function deleteQuestion(questionNum) {
             const questionCard = document.querySelector(`[data-question-num="${questionNum}"]`);
             if (questionCard) {
-                // Don't allow deleting if it's the only question
                 const totalQuestions = document.querySelectorAll('.question-form-card').length;
                 if (totalQuestions > 1) {
                     questionCard.remove();
@@ -300,7 +293,6 @@
             const title = document.getElementById('quizTitle').value;
             const description = document.getElementById('quizDescription').value;
 
-            // Get workspace ID from URL
             const urlParams = new URLSearchParams(window.location.search);
             const workspaceId = urlParams.get('id') || sessionStorage.getItem('currentWorkspaceId');
 
@@ -314,7 +306,6 @@
                 return;
             }
 
-            // Collect all questions
             const questions = [];
             const questionCards = document.querySelectorAll('.question-form-card');
 
@@ -328,7 +319,6 @@
                     return;
                 }
 
-                // Convert correct answer (a,b,c,d) to index (0,1,2,3)
                 const correctIndex = correctAnswer.value.charCodeAt(0) - 97;
 
                 questions.push({
@@ -339,7 +329,6 @@
             }
 
 
-            // Send to backend
             try {
                 const response = await fetch('http://localhost:5000/api/quizzes', {
                     method: 'POST',
@@ -357,7 +346,6 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Redirect without alert
                     window.location.href = `quiz-list.html?id=${workspaceId}`;
                 } else {
                     alert(data.message || 'Failed to save quiz');
@@ -378,15 +366,12 @@
                 return;
             }
 
-            // Show loading state
             const generateBtn = document.querySelector('.ai-generate-btn');
             const originalText = generateBtn.innerHTML;
             generateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating...';
             generateBtn.disabled = true;
 
-            // Simulate AI generation (in real app, this would call your AI API)
             setTimeout(() => {
-                // Generate mock questions
                 const mockQuestions = [];
                 for (let i = 1; i <= count; i++) {
                     mockQuestions.push({
@@ -403,14 +388,11 @@
 
                 displayAIQuestions(mockQuestions);
 
-                // Reset button
                 generateBtn.innerHTML = originalText;
                 generateBtn.disabled = false;
 
-                // Show preview section
                 document.getElementById('aiPreview').style.display = 'block';
 
-                // Scroll to preview
                 document.getElementById('aiPreview').scrollIntoView({ behavior: 'smooth' });
             }, 2000);
         }
