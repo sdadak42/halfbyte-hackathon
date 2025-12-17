@@ -6,24 +6,24 @@ const questionSchema = new mongoose.Schema({
     type: [String],
     validate: v => Array.isArray(v) && v.length >= 2
   },
-  correctAnswer: { type: Number, required: true } // Index of the correct option
+  correctAnswer: { type: Number, required: true }
 });
 
 const quizSchema = new mongoose.Schema({
   workspaceId: {
-    type: String, // Changed from ObjectId to String to match Workspace model
+    type: String,
     required: true,
-    ref: 'Workspace' // Logical reference, not strict ObjectId ref
+    ref: 'Workspace'
   },
   noteId: {
-    type: mongoose.Schema.Types.ObjectId, // Notes might still be ObjectId if implemented that way, or String. Keeping ObjectId for now or null.
+    type: mongoose.Schema.Types.ObjectId, 
     ref: 'Note',
     default: null
   },
   title: { type: String, required: true },
   questions: { type: [questionSchema], required: true },
   createdBy: {
-    type: String, // Changed to Username (String)
+    type: String, 
     required: true
   }
 }, { timestamps: true });
