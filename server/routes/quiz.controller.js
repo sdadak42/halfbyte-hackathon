@@ -1,10 +1,7 @@
-// controllers/quiz.controller.js
-// controllers/quiz.controller.js
 const Quiz = require('../models/Quiz');
 const QuizResult = require('../models/QuizResult');
 const Workspace = require('../models/Workspace');
 
-// POST /api/quizzes - Quiz oluştur
 exports.createQuiz = async (req, res) => {
   try {
     if (!req.user) {
@@ -32,13 +29,11 @@ exports.createQuiz = async (req, res) => {
       }
     }
 
-    // Check if workspace exists using String logic
     const workspace = await Workspace.findOne({ workspaceId: workspaceId });
     if (!workspace) {
       return res.status(404).json({ message: "Workspace bulunamadı" });
     }
 
-    // Check if user is a member
     if (!workspace.members.includes(req.user.username)) {
       return res.status(403).json({ message: "Bu alana quiz ekleme yetkiniz yok" });
     }
@@ -48,7 +43,7 @@ exports.createQuiz = async (req, res) => {
       noteId: noteId || null,
       title,
       questions,
-      createdBy: req.user.username // Username from Auth
+      createdBy: req.user.username
     });
 
     await quiz.save();
@@ -62,7 +57,7 @@ exports.createQuiz = async (req, res) => {
   }
 };
 
-// GET /api/quizzes?workspaceId=xxx
+
 exports.getAllQuizzes = async (req, res) => {
   try {
     const { workspaceId } = req.query;
@@ -89,7 +84,7 @@ exports.getAllQuizzes = async (req, res) => {
   }
 };
 
-// GET /api/quizzes/:id
+
 exports.getQuizById = async (req, res) => {
   try {
     const quiz = await Quiz.findById(req.params.id);
@@ -169,7 +164,7 @@ exports.submitQuiz = async (req, res) => {
   }
 };
 
-// GET /api/quizzes/:id/results (Scoreboard)
+
 exports.getQuizResults = async (req, res) => {
   try {
     const results = await QuizResult.find({ quizId: req.params.id })
@@ -182,7 +177,7 @@ exports.getQuizResults = async (req, res) => {
   }
 };
 
-// GET /api/quizzes/:id/my-results
+
 exports.getMyQuizResults = async (req, res) => {
   try {
     const results = await QuizResult.find({
