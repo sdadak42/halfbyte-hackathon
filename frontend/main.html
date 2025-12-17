@@ -47,29 +47,25 @@
 
 
     <script>
-        // Get workspace ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         const workspaceId = urlParams.get('id');
 
-        // Store in sessionStorage for other pages to use
         if (workspaceId) {
             sessionStorage.setItem('currentWorkspaceId', workspaceId);
         }
 
-        // Update navigation links with workspace ID
         document.addEventListener('DOMContentLoaded', () => {
             if (workspaceId) {
                 const noteLinks = document.querySelectorAll('a[href=""]');
-                noteLinks[0].href = `note_list.html?id=${workspaceId}`; // Notes
-                noteLinks[1].href = `#`; // Flash Cards (not implemented yet)
-                noteLinks[2].href = `quiz-list.html?id=${workspaceId}`; // Quizzes
-                noteLinks[3].href = `#`; // Account Settings
+                noteLinks[0].href = `note_list.html?id=${workspaceId}`;
+                noteLinks[1].href = `#`; 
+                noteLinks[2].href = `quiz-list.html?id=${workspaceId}`; 
+                noteLinks[3].href = `#`; 
 
-                // Update action buttons
                 const actionBtns = document.querySelectorAll('.action-btn');
-                actionBtns[0].href = `note_list.html?id=${workspaceId}`; // Notes
-                actionBtns[1].href = `quiz-list.html?id=${workspaceId}`; // Quizzes
-                actionBtns[2].href = `#`; // Flash Cards
+                actionBtns[0].href = `note_list.html?id=${workspaceId}`;
+                actionBtns[1].href = `quiz-list.html?id=${workspaceId}`;
+                actionBtns[2].href = `#`; 
             }
         });
 
@@ -85,5 +81,6 @@
     </script>
 
 </body>
+
 
 </html>
