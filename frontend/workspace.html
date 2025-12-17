@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quenote - Workspaces</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="workspace.css">
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png" alt="Quenote Logo"></a>
+        </nav>
+
+        <div class="workspace-content">
+            <h1 class="page-title">My Workspaces</h1>
+            
+            <div class="workspace-layout">
+                <div class="left-section">
+                    
+                    <div class="action-card" style="cursor: default;">
+                        <h3>Create Workspace:</h3>
+                        <label class="workspace-id-label">Workspace Name:</label>
+                        <input type="text" id="createNameInput" class="workspace-id-input" placeholder="Enter name (e.g. Math Study)">
+                        
+                        <button class="join-btn" onclick="createWorkspace()">Create</button>
+                    </div>
+                    
+                    <div class="action-card" style="cursor: default;">
+                        <h3>Join Workspace:</h3>
+                        <label class="workspace-id-label">Workspace ID:</label>
+                        <input type="text" id="joinIdInput" class="workspace-id-input" placeholder="Enter ID (e.g. XY9Z2A)">
+                        
+                        <button class="join-btn" onclick="joinWorkspace()">Join</button>
+                    </div>
+
+                </div>
+
+                <div class="right-section">
+                    <h2 class="section-title">Active Workspaces :</h2>
+                    
+                    <div class="workspace-grid" id="workspaceGrid">
+                        </div>
+                    
+                    <div id="emptyState" class="empty-state">
+                        <p>No workspaces yet. Create or join one to get started!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api/workspaces';
+
+        // 1. Create Workspace
+        async function createWorkspace() {
+            const nameInput = document.getElementById('createNameInput');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert('Please enter a workspace name');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/create`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ name: name })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    createWorkspaceCard(data); // Listeye ekle
+                    nameInput.value = ''; // Inputu temizle
+                    alert('Workspace created successfully!');
+                } else {
+                    alert(data.message || 'Failed to create workspace');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Server connection error');
+            }
+        }
+
+        // 2. Join Workspace
+        async function joinWorkspace() {
+            const idInput = document.getElementById('joinIdInput');
+            const workspaceId = idInput.value.trim();
+            
+            if (!workspaceId) {
+                alert('Please enter a workspace ID');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/join`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ workspaceId: workspaceId })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Sayfayı yenileyebilir veya listeyi tekrar çekebiliriz
+                    // Şimdilik listeyi yenilemeyi deneyelim
+                    loadWorkspaces();
+                    idInput.value = '';
+                    alert('Joined workspace successfully!');
+                } else {
+                    alert(data.message || 'Failed to join workspace');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Server connection error');
+            }
+        }
+
+        // 3. Kart Oluşturma (Görselleştirme)
+        function createWorkspaceCard(workspace) {
+            const grid = document.getElementById('workspaceGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            const card = document.createElement('div');
+            card.className = 'workspace-card';
+            
+            // Tıklayınca Git
+            card.onclick = () => {
+                window.location.href = `workspace_detail.html?id=${workspace.workspaceId}`;
+            };
+
+            // ID Badge
+            const idSpan = document.createElement('span');
+            idSpan.style.position = 'absolute';
+            idSpan.style.top = '10px';
+            idSpan.style.right = '10px';
+            idSpan.style.fontSize = '12px';
+            idSpan.style.color = '#666';
+            idSpan.textContent = 'ID: ' + workspace.workspaceId;
+
+            // İsim
+            const nameSpan = document.createElement('span');
+            nameSpan.style.fontWeight = '500';
+            nameSpan.textContent = workspace.name;
+
+            card.appendChild(idSpan);
+            card.appendChild(nameSpan);
+            
+            grid.appendChild(card);
+            emptyState.classList.remove('show');
+        }
+
+        // 4. Listeyi Yükle
+        async function loadWorkspaces() {
+            const grid = document.getElementById('workspaceGrid');
+            const emptyState = document.getElementById('emptyState');
+            grid.innerHTML = '';
+
+            try {
+                const response = await fetch(`${API_URL}/list`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+
+                if (response.ok) {
+                    const workspaces = await response.json();
+                    if (workspaces.length > 0) {
+                        workspaces.forEach(ws => createWorkspaceCard(ws));
+                    } else {
+                        emptyState.classList.add('show');
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+                emptyState.classList.add('show');
+            }
+        }
+
+        window.addEventListener('load', loadWorkspaces);
+    </script>
+</body>
+</html>
