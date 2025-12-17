@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quenote - Your Notes</title>
-    <link rel="stylesheet" href="note_list.css">
+    <link rel="stylesheet" href="assets/css/note_list.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css">
 </head>
+
 <body>
     <section class="header">
-        <a href="note_list.html"><img src="images/logo.png"></a>
+        <a href="index.html"><img src="assets/images/logo.png"></a>
         <div class="text-box">
             <h1>Recently Created Notes</h1>
             <p>Select a note to start practicing</p>
-            
-            <div class="note-grid">
+
+            <div class="note-grid" id="noteGrid">
                 <div class="note-card create-card" onclick="createNewNote()">
                     <div class="create-icon">
                         <i class="fa-solid fa-plus"></i>
@@ -24,64 +29,68 @@
                     <p>Click to create new notes.</p>
                 </div>
 
-                <div class="note-card" onclick="openNote('note1')">
-                    <div class="note-icon">
-                        <i class="fa-solid fa-file-lines"></i>
-                    </div>
-                    <h3>JavaScript Basics</h3>
-                </div>
-                
-                <div class="note-card" onclick="openNote('note2')">
-                    <div class="note-icon">
-                        <i class="fa-solid fa-file-lines"></i>
-                    </div>
-                    <h3>Data Structures</h3>
-                </div>
-                
-                <div class="note-card" onclick="openNote('note3')">
-                    <div class="note-icon">
-                        <i class="fa-solid fa-file-lines"></i>
-                    </div>
-                    <h3>Python Functions</h3>
-                </div>
-                
-                <div class="note-card" onclick="openNote('note4')">
-                    <div class="note-icon">
-                        <i class="fa-solid fa-file-lines"></i>
-                    </div>
-                    <h3>SQL Queries</h3>
-                </div>
-                
-                <div class="note-card" onclick="openNote('note5')">
-                    <div class="note-icon">
-                        <i class="fa-solid fa-file-lines"></i>
-                    </div>
-                    <h3>REST API Design</h3>
-                </div>
+                <!-- Notes will be loaded here dynamically -->
             </div>
         </div>
     </section>
 
     <script>
-        var navLinks = document.getElementById("navLinks");
-        
-        function showMenu(){
-            navLinks.style.right = "0";
-            document.body.classList.add('sidebar-open');
+        const API_URL = 'http://localhost:5000/api/notes';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const workspaceId = urlParams.get('id') || sessionStorage.getItem('currentWorkspaceId');
+
+        async function loadNotes() {
+            // Static fake notes for preview (not from database)
+            const fakeNotes = [
+                {
+                    _id: 'fake1',
+                    title: 'JavaScript Temelleri',
+                    content: 'JavaScript değişkenler, fonksiyonlar ve döngüler hakkında temel bilgiler...'
+                },
+                {
+                    _id: 'fake2',
+                    title: 'React Hooks',
+                    content: 'useState, useEffect ve custom hooks kullanımı...'
+                }
+            ];
+
+            displayNotes(fakeNotes);
         }
-        
-        function hideMenu(){
-            navLinks.style.right = "-200px";
-            document.body.classList.remove('sidebar-open');
+
+        function displayNotes(notes) {
+            const grid = document.getElementById('noteGrid');
+
+            const createCard = grid.querySelector('.create-card');
+            grid.innerHTML = '';
+            grid.appendChild(createCard);
+
+            notes.forEach(note => {
+                const card = document.createElement('div');
+                card.className = 'note-card';
+                card.onclick = () => openNote(note._id);
+
+                card.innerHTML = `
+                    <div class="note-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h3>${note.title}</h3>
+                `;
+
+                grid.appendChild(card);
+            });
         }
-        
-        function createNewNote(){
-            window.location.href = 'note-create.html';
+
+        function createNewNote() {
+            alert('📝 Not ekleme özelliği şu anda geliştirilme aşamasındadır.');
         }
-        
-        function openNote(noteId){
-            window.location.href = `note-solve.html?note=${noteId}`;
+
+        function openNote(noteId) {
+            alert('📚 Not görüntüleme özelliği şu anda geliştirilme aşamasındadır.');
         }
+
+        window.addEventListener('load', loadNotes);
     </script>
 </body>
+
 </html>

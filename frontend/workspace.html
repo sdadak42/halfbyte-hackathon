@@ -1,41 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quenote - Workspaces</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="workspace.css">
+
+    <link rel="stylesheet" href="assets/css/workspace.css">
 </head>
+
 <body>
     <section class="header">
         <nav>
-            <a href="index.html"><img src="images/logo.png" alt="Quenote Logo"></a>
+            <a href="index.html"><img src="assets/images/logo.png" alt="Quenote Logo"></a>
         </nav>
 
         <div class="workspace-content">
             <h1 class="page-title">My Workspaces</h1>
-            
+
             <div class="workspace-layout">
                 <div class="left-section">
-                    
+
                     <div class="action-card" style="cursor: default;">
                         <h3>Create Workspace:</h3>
                         <label class="workspace-id-label">Workspace Name:</label>
-                        <input type="text" id="createNameInput" class="workspace-id-input" placeholder="Enter name (e.g. Math Study)">
-                        
+                        <input type="text" id="createNameInput" class="workspace-id-input"
+                            placeholder="Enter name (e.g. Math Study)">
+
                         <button class="join-btn" onclick="createWorkspace()">Create</button>
                     </div>
-                    
+
                     <div class="action-card" style="cursor: default;">
                         <h3>Join Workspace:</h3>
                         <label class="workspace-id-label">Workspace ID:</label>
-                        <input type="text" id="joinIdInput" class="workspace-id-input" placeholder="Enter ID (e.g. XY9Z2A)">
-                        
+                        <input type="text" id="joinIdInput" class="workspace-id-input"
+                            placeholder="Enter ID (e.g. XY9Z2A)">
+
                         <button class="join-btn" onclick="joinWorkspace()">Join</button>
                     </div>
 
@@ -43,10 +49,10 @@
 
                 <div class="right-section">
                     <h2 class="section-title">Active Workspaces :</h2>
-                    
+
                     <div class="workspace-grid" id="workspaceGrid">
-                        </div>
-                    
+                    </div>
+
                     <div id="emptyState" class="empty-state">
                         <p>No workspaces yet. Create or join one to get started!</p>
                     </div>
@@ -62,7 +68,7 @@
         async function createWorkspace() {
             const nameInput = document.getElementById('createNameInput');
             const name = nameInput.value.trim();
-            
+
             if (!name) {
                 alert('Please enter a workspace name');
                 return;
@@ -83,7 +89,6 @@
                 if (response.ok) {
                     createWorkspaceCard(data); // Listeye ekle
                     nameInput.value = ''; // Inputu temizle
-                    alert('Workspace created successfully!');
                 } else {
                     alert(data.message || 'Failed to create workspace');
                 }
@@ -97,7 +102,7 @@
         async function joinWorkspace() {
             const idInput = document.getElementById('joinIdInput');
             const workspaceId = idInput.value.trim();
-            
+
             if (!workspaceId) {
                 alert('Please enter a workspace ID');
                 return;
@@ -134,13 +139,13 @@
         function createWorkspaceCard(workspace) {
             const grid = document.getElementById('workspaceGrid');
             const emptyState = document.getElementById('emptyState');
-            
+
             const card = document.createElement('div');
             card.className = 'workspace-card';
-            
+
             // Tıklayınca Git
             card.onclick = () => {
-                window.location.href = `workspace_detail.html?id=${workspace.workspaceId}`;
+                window.location.href = `main.html?id=${workspace.workspaceId}`;
             };
 
             // ID Badge
@@ -159,7 +164,7 @@
 
             card.appendChild(idSpan);
             card.appendChild(nameSpan);
-            
+
             grid.appendChild(card);
             emptyState.classList.remove('show');
         }
@@ -194,4 +199,5 @@
         window.addEventListener('load', loadWorkspaces);
     </script>
 </body>
+
 </html>

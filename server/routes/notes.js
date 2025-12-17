@@ -63,6 +63,31 @@ router.post("/add", upload.single('pdfFile'), async (req, res) => {
   }
 });
 
+// GET /api/notes?workspaceId=xxx (query parameter)
+router.get("/", async (req, res) => {
+  try {
+    const { workspaceId } = req.query;
+
+    if (!workspaceId) {
+      return res.status(400).json({ message: "workspaceId is required" });
+    }
+
+    const workspace = await Workspace.findOne({ workspaceId: workspaceId });
+    if (!workspace) {
+      return res.status(404).json({ message: "Workspace not found" });
+    }
+
+    if (!workspace.members.includes(req.user.username)) {
+      return res.status(403).json({ message: "Access denied" });
+    }
+
+    const notes = await Note.find({ workspaceId: workspaceId }).sort('-createdAt');
+    res.status(200).json(notes);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 router.get("/list/:workspaceId", async (req, res) => {
   try {
     const { workspaceId } = req.params;

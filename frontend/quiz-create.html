@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quenote - Create Quiz</title>
-    <link rel="stylesheet" href="quiz.css">
+    <link rel="stylesheet" href="assets/css/quiz.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css">
 </head>
+
 <body>
     <section class="header">
-        <a href="index.html"><img src="images/logo.png"></a>
+        <a href="index.html"><img src="assets/images/logo.png"></a>
         <div class="create-quiz-container" id="modeSelection">
             <div class="create-header">
                 <button class="back-btn" onclick="goBack()">
@@ -20,7 +24,7 @@
                 <h1>Create New Quiz</h1>
                 <p>Choose how you want to create your quiz</p>
             </div>
-            
+
             <!-- Mode Selection Cards -->
             <div class="mode-selection-grid">
                 <div class="mode-card" onclick="selectMode('manual')">
@@ -30,7 +34,7 @@
                     <h3>Manual Creation</h3>
                     <p>Create questions manually with full control over content and options</p>
                 </div>
-                
+
                 <div class="mode-card ai-card" onclick="selectMode('ai')">
                     <span class="beta-badge">BETA</span>
                     <div class="mode-icon">
@@ -41,7 +45,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Manual Quiz Creation Form -->
         <div class="create-quiz-form" id="manualForm" style="display: none;">
             <div class="form-header">
@@ -50,19 +54,19 @@
                 </button>
                 <h1>Create Quiz Manually</h1>
             </div>
-            
+
             <div class="quiz-info-section">
                 <div class="form-group">
                     <label for="quizTitle">Quiz Title</label>
                     <input type="text" id="quizTitle" placeholder="e.g., JavaScript Basics" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="quizDescription">Description (Optional)</label>
                     <textarea id="quizDescription" rows="2" placeholder="Brief description of your quiz"></textarea>
                 </div>
             </div>
-            
+
             <div class="questions-section" id="questionsSection">
                 <div class="section-header">
                     <h2>Questions</h2>
@@ -70,7 +74,7 @@
                         <i class="fa-solid fa-plus"></i> Add Question
                     </button>
                 </div>
-                
+
                 <!-- Question 1 (Default) -->
                 <div class="question-form-card" data-question-num="1">
                     <div class="question-form-header">
@@ -79,12 +83,13 @@
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Question Text</label>
-                        <textarea class="question-text-input" rows="2" placeholder="Enter your question" required></textarea>
+                        <textarea class="question-text-input" rows="2" placeholder="Enter your question"
+                            required></textarea>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Answer Options</label>
                         <div class="options-list">
@@ -112,7 +117,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-actions">
                 <button class="action-button secondary" onclick="backToModeSelection()">Cancel</button>
                 <button class="action-button primary" onclick="saveQuiz()">
@@ -120,7 +125,7 @@
                 </button>
             </div>
         </div>
-        
+
         <!-- AI Quiz Creation Form -->
         <div class="create-quiz-form" id="aiForm" style="display: none;">
             <div class="form-header">
@@ -129,23 +134,26 @@
                 </button>
                 <h1>AI-Powered Quiz Creation <span class="beta-badge-inline">BETA</span></h1>
             </div>
-            
+
             <div class="ai-info-banner">
                 <i class="fa-solid fa-circle-info"></i>
-                <p>This feature is currently in beta. AI will generate quiz questions based on your input. Please review questions before saving.</p>
+                <p>This feature is currently in beta. AI will generate quiz questions based on your input. Please review
+                    questions before saving.</p>
             </div>
-            
+
             <div class="quiz-info-section">
                 <div class="form-group">
                     <label for="aiQuizTitle">Quiz Title</label>
                     <input type="text" id="aiQuizTitle" placeholder="e.g., Python Functions" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="aiTopic">Topic or Content</label>
-                    <textarea id="aiTopic" rows="6" placeholder="Enter a topic or paste your notes here. AI will generate questions based on this content." required></textarea>
+                    <textarea id="aiTopic" rows="6"
+                        placeholder="Enter a topic or paste your notes here. AI will generate questions based on this content."
+                        required></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="questionCount">Number of Questions</label>
                     <select id="questionCount">
@@ -156,25 +164,25 @@
                     </select>
                 </div>
             </div>
-            
+
             <div class="form-actions">
                 <button class="action-button secondary" onclick="backToModeSelection()">Cancel</button>
                 <button class="action-button primary ai-generate-btn" onclick="generateAIQuiz()">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Quiz
                 </button>
             </div>
-            
+
             <!-- AI Generated Questions Preview (Initially Hidden) -->
             <div class="ai-preview-section" id="aiPreview" style="display: none;">
                 <div class="section-header">
                     <h2>Generated Questions</h2>
                     <p class="preview-note">Review and edit questions before saving</p>
                 </div>
-                
+
                 <div id="aiGeneratedQuestions">
                     <!-- AI generated questions will be displayed here -->
                 </div>
-                
+
                 <div class="form-actions">
                     <button class="action-button secondary" onclick="regenerateQuiz()">
                         <i class="fa-solid fa-rotate-right"></i> Regenerate
@@ -190,46 +198,48 @@
     <script>
         var navLinks = document.getElementById("navLinks");
         let questionCounter = 1;
-        
-        function showMenu(){
+
+        function showMenu() {
             navLinks.style.right = "0";
             document.body.classList.add('sidebar-open');
         }
-        
-        function hideMenu(){
+
+        function hideMenu() {
             navLinks.style.right = "-200px";
             document.body.classList.remove('sidebar-open');
         }
-        
-        function goBack(){
-            window.location.href = 'quiz-list.html';
+
+        function goBack() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const workspaceId = urlParams.get('id') || sessionStorage.getItem('currentWorkspaceId');
+            window.location.href = workspaceId ? `quiz-list.html?id=${workspaceId}` : 'quiz-list.html';
         }
-        
-        function selectMode(mode){
+
+        function selectMode(mode) {
             document.getElementById('modeSelection').style.display = 'none';
-            
-            if(mode === 'manual'){
+
+            if (mode === 'manual') {
                 document.getElementById('manualForm').style.display = 'block';
-            } else if(mode === 'ai'){
+            } else if (mode === 'ai') {
                 document.getElementById('aiForm').style.display = 'block';
             }
         }
-        
-        function backToModeSelection(){
+
+        function backToModeSelection() {
             document.getElementById('manualForm').style.display = 'none';
             document.getElementById('aiForm').style.display = 'none';
             document.getElementById('aiPreview').style.display = 'none';
             document.getElementById('modeSelection').style.display = 'block';
         }
-        
-        function addQuestion(){
+
+        function addQuestion() {
             questionCounter++;
             const questionsSection = document.getElementById('questionsSection');
-            
+
             const questionCard = document.createElement('div');
             questionCard.className = 'question-form-card';
             questionCard.setAttribute('data-question-num', questionCounter);
-            
+
             questionCard.innerHTML = `
                 <div class="question-form-header">
                     <h3>Question ${questionCounter}</h3>
@@ -269,82 +279,116 @@
                     </div>
                 </div>
             `;
-            
+
             questionsSection.appendChild(questionCard);
         }
-        
-        function deleteQuestion(questionNum){
+
+        function deleteQuestion(questionNum) {
             const questionCard = document.querySelector(`[data-question-num="${questionNum}"]`);
-            if(questionCard){
+            if (questionCard) {
                 // Don't allow deleting if it's the only question
                 const totalQuestions = document.querySelectorAll('.question-form-card').length;
-                if(totalQuestions > 1){
+                if (totalQuestions > 1) {
                     questionCard.remove();
                 } else {
                     alert('You must have at least one question!');
                 }
             }
         }
-        
-        function saveQuiz(){
+
+        async function saveQuiz() {
             const title = document.getElementById('quizTitle').value;
             const description = document.getElementById('quizDescription').value;
-            
-            if(!title){
+
+            // Get workspace ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const workspaceId = urlParams.get('id') || sessionStorage.getItem('currentWorkspaceId');
+
+            if (!workspaceId) {
+                alert('No workspace selected!');
+                return;
+            }
+
+            if (!title) {
                 alert('Please enter a quiz title!');
                 return;
             }
-            
+
             // Collect all questions
             const questions = [];
             const questionCards = document.querySelectorAll('.question-form-card');
-            
-            for(let card of questionCards){
+
+            for (let card of questionCards) {
                 const questionText = card.querySelector('.question-text-input').value;
                 const options = Array.from(card.querySelectorAll('.option-text-input')).map(input => input.value);
                 const correctAnswer = card.querySelector('input[type="radio"]:checked');
-                
-                if(!questionText || options.some(opt => !opt) || !correctAnswer){
+
+                if (!questionText || options.some(opt => !opt) || !correctAnswer) {
                     alert('Please fill in all question fields and select correct answers!');
                     return;
                 }
-                
+
+                // Convert correct answer (a,b,c,d) to index (0,1,2,3)
+                const correctIndex = correctAnswer.value.charCodeAt(0) - 97;
+
                 questions.push({
-                    question: questionText,
+                    questionText: questionText,
                     options: options,
-                    correct: correctAnswer.value
+                    correctAnswer: correctIndex
                 });
             }
-            
-            // Here you would save to backend/localStorage
-            console.log('Saving quiz:', { title, description, questions });
-            alert('Quiz saved successfully! (This would normally save to your database)');
-            
-            // Redirect back to quiz list
-            window.location.href = 'quiz-list.html';
+
+
+            // Send to backend
+            try {
+                const response = await fetch('http://localhost:5000/api/quizzes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        workspaceId: workspaceId,
+                        title: title,
+                        questions: questions
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Redirect without alert
+                    window.location.href = `quiz-list.html?id=${workspaceId}`;
+                } else {
+                    alert(data.message || 'Failed to save quiz');
+                }
+            } catch (error) {
+                console.error('Error saving quiz:', error);
+                alert('Server connection error');
+            }
         }
-        
-        function generateAIQuiz(){
+
+        function generateAIQuiz() {
             const title = document.getElementById('aiQuizTitle').value;
             const topic = document.getElementById('aiTopic').value;
             const count = document.getElementById('questionCount').value;
-            
-            if(!title || !topic){
+
+            if (!title || !topic) {
                 alert('Please fill in the quiz title and topic!');
                 return;
             }
-            
+
             // Show loading state
             const generateBtn = document.querySelector('.ai-generate-btn');
             const originalText = generateBtn.innerHTML;
             generateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating...';
             generateBtn.disabled = true;
-            
+
             // Simulate AI generation (in real app, this would call your AI API)
             setTimeout(() => {
                 // Generate mock questions
                 const mockQuestions = [];
-                for(let i = 1; i <= count; i++){
+                for (let i = 1; i <= count; i++) {
                     mockQuestions.push({
                         question: `AI Generated Question ${i} about ${topic.split(' ')[0]}?`,
                         options: [
@@ -356,25 +400,25 @@
                         correct: 'a'
                     });
                 }
-                
+
                 displayAIQuestions(mockQuestions);
-                
+
                 // Reset button
                 generateBtn.innerHTML = originalText;
                 generateBtn.disabled = false;
-                
+
                 // Show preview section
                 document.getElementById('aiPreview').style.display = 'block';
-                
+
                 // Scroll to preview
                 document.getElementById('aiPreview').scrollIntoView({ behavior: 'smooth' });
             }, 2000);
         }
-        
-        function displayAIQuestions(questions){
+
+        function displayAIQuestions(questions) {
             const container = document.getElementById('aiGeneratedQuestions');
             container.innerHTML = '';
-            
+
             questions.forEach((q, index) => {
                 const questionCard = document.createElement('div');
                 questionCard.className = 'question-preview-card';
@@ -396,18 +440,19 @@
                 container.appendChild(questionCard);
             });
         }
-        
-        function regenerateQuiz(){
-            if(confirm('Are you sure you want to regenerate? Current questions will be lost.')){
+
+        function regenerateQuiz() {
+            if (confirm('Are you sure you want to regenerate? Current questions will be lost.')) {
                 document.getElementById('aiPreview').style.display = 'none';
                 generateAIQuiz();
             }
         }
-        
-        function saveAIQuiz(){
+
+        function saveAIQuiz() {
             alert('AI Quiz saved successfully! (This would normally save to your database)');
             window.location.href = 'quiz-list.html';
         }
     </script>
 </body>
+
 </html>

@@ -1,124 +1,50 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quenote - Take Quiz</title>
-    <link rel="stylesheet" href="quiz.css">
+    <link rel="stylesheet" href="assets/css/quiz.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css">
 </head>
+
 <body>
     <section class="header">
-        <a href="index.html"><img src="images/logo.png"></a>
+        <a href="index.html"><img src="assets/images/logo.png"></a>
         <div class="quiz-solve-container" id="quizSection">
             <div class="quiz-header">
                 <button class="back-btn" onclick="goBack()">
                     <i class="fa-solid fa-arrow-left"></i> Back to Quizzes
                 </button>
-                <h1 id="quizTitle">JavaScript Basics Quiz</h1>
+                <h1 id="quizTitle">Loading...</h1>
             </div>
-            
-            <!-- Quiz Questions -->
+
+            <!-- Quiz Questions (will be loaded dynamically) -->
             <div class="questions-container" id="questionsContainer">
-                <div class="question-card">
-                    <div class="question-number">Question 1 of 5</div>
-                    <h2 class="question-text">What is the correct syntax for referring to an external script?</h2>
-                    
-                    <div class="options-container">
-                        <label class="option">
-                            <input type="radio" name="q1" value="a">
-                            <span class="option-text">&lt;script href="app.js"&gt;</span>
-                        </label>
-                        
-                        <label class="option">
-                            <input type="radio" name="q1" value="b">
-                            <span class="option-text">&lt;script name="app.js"&gt;</span>
-                        </label>
-                        
-                        <label class="option">
-                            <input type="radio" name="q1" value="c">
-                            <span class="option-text">&lt;script src="app.js"&gt;</span>
-                        </label>
-                        
-                        <label class="option">
-                            <input type="radio" name="q1" value="d">
-                            <span class="option-text">&lt;script file="app.js"&gt;</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="question-card">
-                    <div class="question-number">Question 2 of 5</div>
-                    <h2 class="question-text">Which operator is used for equality comparison in JavaScript?</h2>
-                    
-                    <div class="options-container">
-                        <label class="option">
-                            <input type="radio" name="q2" value="a">
-                            <span class="option-text">=</span>
-                        </label>
-                        
-                        <label class="option">
-                            <input type="radio" name="q2" value="b">
-                            <span class="option-text">==</span>
-                        </label>
-                        
-                        <label class="option">
-                            <input type="radio" name="q2" value="c">
-                            <span class="option-text">===</span>
-                        </label>
-                        
-                        <label class="option">
-                            <input type="radio" name="q2" value="d">
-                            <span class="option-text">!=</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="question-card">
-                    <div class="question-number">Question 3 of 5</div>
-                    <h2 class="question-text">How do you declare a JavaScript variable?</h2>
-                    
-                    <div class="options-container">
-                        <label class="option">
-                            <input type="radio" name="q3" value="a">
-                            <span class="option-text">variable x;</span>
-                        </label>
-                        
-                        <label class="option">
-                            <input type="radio" name="q3" value="b">
-                            <span class="option-text">var x;</span>
-                        </label>
-                        
-                        <label class="option">
-                            <input type="radio" name="q3" value="c">
-                            <span class="option-text">v x;</span>
-                        </label>
-                        
-                        <label class="option">
-                            <input type="radio" name="q3" value="d">
-                            <span class="option-text">x = var;</span>
-                        </label>
-                    </div>
-                </div>
+                <p>Loading quiz...</p>
             </div>
-            
-            <button class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+
+            <button class="submit-btn" id="submitBtn" onclick="submitQuiz()" style="display:none">Submit Quiz</button>
         </div>
-        
+
         <!-- Results Section (hidden initially) -->
         <div class="results-container" id="resultsSection" style="display: none;">
             <div class="results-header">
                 <h1>Your Grade:</h1>
                 <div class="grade-display">
                     <div class="grade-circle">
-                        <span class="grade-percentage" id="gradePercentage">80%</span>
+                        <span class="grade-percentage" id="gradePercentage">0%</span>
                     </div>
-                    <p class="grade-text" id="gradeText">Good Job!</p>
+                    <p class="grade-text" id="gradeText">Loading...</p>
                 </div>
             </div>
-            
+
             <div class="results-table">
                 <table>
                     <thead>
@@ -128,26 +54,10 @@
                             <th>Grade</th>
                         </tr>
                     </thead>
-                    <tbody id="resultsTableBody">
-                        <tr>
-                            <td>1</td>
-                            <td>C</td>
-                            <td class="correct">✓</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>C</td>
-                            <td class="correct">✓</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>B</td>
-                            <td class="correct">✓</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="resultsTableBody"></tbody>
                 </table>
             </div>
-            
+
             <div class="results-actions">
                 <button class="action-button primary" onclick="retakeQuiz()">
                     <i class="fa-solid fa-rotate-right"></i> Retake Quiz
@@ -160,98 +70,167 @@
     </section>
 
     <script>
-        var navLinks = document.getElementById("navLinks");
-        
-        // Correct answers
-        const correctAnswers = {
-            q1: 'c',
-            q2: 'c',
-            q3: 'b'
-        };
-        
-        function showMenu(){
-            navLinks.style.right = "0";
-            document.body.classList.add('sidebar-open');
-        }
-        
-        function hideMenu(){
-            navLinks.style.right = "-200px";
-            document.body.classList.remove('sidebar-open');
-        }
-        
-        function goBack(){
-            window.location.href = 'quiz-list.html';
-        }
-        
-        function submitQuiz(){
-            // Get all answers
-            let score = 0;
-            let totalQuestions = Object.keys(correctAnswers).length;
-            let results = [];
-            
-            for(let question in correctAnswers){
-                let selected = document.querySelector(`input[name="${question}"]:checked`);
-                let answer = selected ? selected.value : null;
-                let isCorrect = answer === correctAnswers[question];
-                
-                if(isCorrect) score++;
-                
-                results.push({
-                    question: question.substring(1),
-                    answer: answer ? answer.toUpperCase() : 'N/A',
-                    correct: isCorrect
-                });
+        const API_URL = 'http://localhost:5000/api/quizzes';
+        let currentQuiz = null;
+        let userAnswers = [];
+
+        // Get quiz ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const quizId = urlParams.get('quiz');
+
+        async function loadQuiz() {
+            if (!quizId) {
+                alert('No quiz selected');
+                goBack();
+                return;
             }
-            
-            // Calculate percentage
-            let percentage = Math.round((score / totalQuestions) * 100);
-            
-            // Update results display
-            document.getElementById('gradePercentage').textContent = percentage + '%';
-            
+
+            try {
+                const response = await fetch(`${API_URL}/${quizId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+
+                if (response.ok) {
+                    currentQuiz = await response.json();
+                    displayQuiz();
+                } else {
+                    alert('Failed to load quiz');
+                    goBack();
+                }
+            } catch (error) {
+                console.error('Error loading quiz:', error);
+                alert('Server connection error');
+            }
+        }
+
+        function displayQuiz() {
+            document.getElementById('quizTitle').textContent = currentQuiz.title;
+
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            currentQuiz.questions.forEach((q, index) => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+
+                questionCard.innerHTML = `
+                    <div class="question-number">Question ${index + 1} of ${currentQuiz.questions.length}</div>
+                    <h2 class="question-text">${q.questionText}</h2>
+                    
+                    <div class="options-container">
+                        ${q.options.map((option, optIndex) => `
+                            <label class="option">
+                                <input type="radio" name="q${index}" value="${optIndex}">
+                                <span class="option-text">${option}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+
+                container.appendChild(questionCard);
+            });
+
+            document.getElementById('submitBtn').style.display = 'block';
+        }
+
+        async function submitQuiz() {
+            // Collect answers
+            userAnswers = [];
+
+            for (let i = 0; i < currentQuiz.questions.length; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (!selected) {
+                    alert('Please answer all questions!');
+                    return;
+                }
+                userAnswers.push(parseInt(selected.value));
+            }
+
+            // Submit to backend
+            try {
+                const response = await fetch(`${API_URL}/${quizId}/submit`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ answers: userAnswers })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    displayResults(result);
+                } else {
+                    alert('Failed to submit quiz');
+                }
+            } catch (error) {
+                console.error('Error submitting quiz:', error);
+                alert('Server connection error');
+            }
+        }
+
+        function displayResults(result) {
+            // Update grade
+            document.getElementById('gradePercentage').textContent = result.percentage + '%';
+
             let gradeText = '';
-            if(percentage >= 90) gradeText = 'Excellent!';
-            else if(percentage >= 80) gradeText = 'Good Job!';
-            else if(percentage >= 70) gradeText = 'Well Done!';
-            else if(percentage >= 60) gradeText = 'Keep Practicing!';
+            if (result.percentage >= 90) gradeText = 'Excellent!';
+            else if (result.percentage >= 80) gradeText = 'Good Job!';
+            else if (result.percentage >= 70) gradeText = 'Well Done!';
+            else if (result.percentage >= 60) gradeText = 'Keep Practicing!';
             else gradeText = 'Try Again!';
-            
+
             document.getElementById('gradeText').textContent = gradeText;
-            
+
             // Update results table
-            let tableBody = document.getElementById('resultsTableBody');
+            const tableBody = document.getElementById('resultsTableBody');
             tableBody.innerHTML = '';
-            
-            results.forEach(result => {
-                let row = document.createElement('tr');
+
+            result.detailedResults.forEach((r, index) => {
+                const row = document.createElement('tr');
+                const answerLetter = (r.userAnswer !== undefined && r.userAnswer !== null)
+                    ? String.fromCharCode(65 + r.userAnswer)
+                    : 'N/A';
+
                 row.innerHTML = `
-                    <td>${result.question}</td>
-                    <td>${result.answer}</td>
-                    <td class="${result.correct ? 'correct' : 'incorrect'}">
-                        ${result.correct ? '✓' : '✗'}
+                    <td>${index + 1}</td>
+                    <td>${answerLetter}</td>
+                    <td class="${r.isCorrect ? 'correct' : 'incorrect'}">
+                        ${r.isCorrect ? '✓' : '✗'}
                     </td>
                 `;
                 tableBody.appendChild(row);
             });
-            
+
             // Hide quiz, show results
             document.getElementById('quizSection').style.display = 'none';
             document.getElementById('resultsSection').style.display = 'block';
         }
-        
-        function retakeQuiz(){
+
+        function goBack() {
+            const workspaceId = sessionStorage.getItem('currentWorkspaceId');
+            window.location.href = workspaceId ? `quiz-list.html?id=${workspaceId}` : 'quiz-list.html';
+        }
+
+        function retakeQuiz() {
             // Clear all selections
             document.querySelectorAll('input[type="radio"]').forEach(input => {
                 input.checked = false;
             });
-            
+
             // Show quiz, hide results
             document.getElementById('quizSection').style.display = 'block';
             document.getElementById('resultsSection').style.display = 'none';
-            
+
             // Scroll to top
             window.scrollTo(0, 0);
         }
+
+        // Load quiz on page load
+        window.addEventListener('load', loadQuiz);
     </script>
 </body>
+
 </html>
